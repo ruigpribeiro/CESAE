@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ex_03 {
     public static void main(String[] args) {
 
-        int area, perimeter, width, length;
+        int result, width, length;
 
         // scanner para introduzir inputs
         Scanner scanner = new Scanner(System.in);
@@ -15,11 +15,10 @@ public class Ex_03 {
         width = scanner.nextInt();
 
         // calculo da area e do perimetro
-        area = width * length;
-        perimeter = 2*width + 2*length;
-
-        System.out.println("Area:" + area);
-        System.out.println("Perimetro: " + perimeter);
+        result = width * length;
+        System.out.println("Area:" + result);
+        result = 2*width + 2*length;
+        System.out.println("Perimetro: " + result);
 
     }
 }

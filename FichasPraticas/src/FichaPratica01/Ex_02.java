@@ -15,7 +15,7 @@ public class Ex_02 {
         System.out.print("Introduza um número: ");
         num2 = scanner.nextInt();
 
-        // somas aritméticas: soma, subtração, multiplicação e divisão
+        // calculos aritméticas: soma, subtração, multiplicação e divisão
         sum = num1 + num2;
         subtract = num1 - num2;
         multiply = num1 * num2;

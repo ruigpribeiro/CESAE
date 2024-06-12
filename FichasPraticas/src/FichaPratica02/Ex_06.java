@@ -2,7 +2,7 @@ package FichaPratica02;
 
 import java.util.Scanner;
 
-public class Ex_01 {
+public class Ex_06 {
     public static void main(String[] args) {
 
         int num1, num2;
@@ -15,9 +15,9 @@ public class Ex_01 {
         num2 = scanner.nextInt();
 
         if(num1 > num2) {
-            System.out.println("Maior: " + num1);
+            System.out.println(num1 + "    " + num2);
         } else if(num1 < num2) {
-            System.out.print("Maior: " + num2);
+            System.out.print(num2 + "     " + num1);
         } else {
             System.out.print("São iguais");
         }
