@@ -1,13 +1,12 @@
 package FichaPratica05;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Ex_08 {
+public class Ex_09 {
     public static void main(String[] args) {
 
-        int num = 0;
-        int[][] array = new int[3][3];
+        int num = 0, sum = 0;
+        int[][] array = new int[5][5];
 
         // Import do Scanner
         Scanner scanner = new Scanner(System.in);
@@ -23,9 +22,10 @@ public class Ex_08 {
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
-                System.out.print(array[i][j] + " ");
+                sum += array[j][j];
             }
-            System.out.println();
         }
+
+        System.out.println(sum);
     }
 }
