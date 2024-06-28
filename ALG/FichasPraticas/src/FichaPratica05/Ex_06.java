@@ -1,23 +1,28 @@
 package FichaPratica05;
 
+import java.util.Scanner;
+
 public class Ex_06 {
     public static void main(String[] args) {
 
-        int[] array = {1,3,4,5,3,15,17,19,23,27};
-        boolean cres = false;
+        int[] array = new int[5];
+        boolean crescente = true;
 
-        for (int i = 0; i < array.length - 1; i++) {
-            int next = i+1;
+        Scanner scanner = new Scanner(System.in);
 
-            if (array[i] < array[next]) {
-                cres = true;
-            } else {
-                cres = false;
-                break;
-            }
-
+        for (int i = 0; i < array.length; i++) {
+            System.out.print("Introduza um numero: ");
+            array[i] = scanner.nextInt();
         }
-        if (cres == true) {
+
+        for (int i = 1; i < array.length; i++) {
+
+            if (array[i] <= array[i-1]) {
+                crescente = false;
+            }
+        }
+
+        if (crescente) {
             System.out.println("Está em ordem crescente");
         } else {
             System.out.println("Não está em ordem crescente");
