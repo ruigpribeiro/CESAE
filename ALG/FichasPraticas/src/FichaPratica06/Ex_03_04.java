@@ -81,6 +81,11 @@ public class Ex_03_04 {
         }
     }
 
+    /**
+     * Verifica se é par
+     * @param num
+     * @return true se par, false se ímpar
+     */
     public static boolean isOdd(int num) {
 
         if (num % 2 == 0) {

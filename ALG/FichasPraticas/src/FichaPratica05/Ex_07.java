@@ -19,12 +19,13 @@ public class Ex_07 {
 
 
 
-        highEven = array[0];
+        highEven = 1;
 
         for (int i = 0; i < array.length; i++) {
+
             if (array[i] % 2 == 0) {
 
-                if (highEven % 2 == 0){
+                if (highEven % 2 != 0){
                     highEven = array[i];
                 } else {
                     if (array[i]>highEven) {
@@ -34,9 +35,9 @@ public class Ex_07 {
             }
         }
         if (highEven % 2 != 0) {
-            System.out.println("There's not an even number");
+            System.out.println("Não tem pares");
         } else {
-            System.out.println(highEven);
+            System.out.println("Maior par: " + highEven);
         }
 
     }
