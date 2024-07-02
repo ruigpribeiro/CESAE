@@ -5,32 +5,31 @@ import java.util.Scanner;
 public class Ex_02 {
     public static void main(String[] args) {
 
+        int num = printNumber();
+        printAsterisk(num);
+
+    }
+
+    public static int printNumber() {
+
         int num;
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Introduza um número: ");
-        num = scanner.nextInt();
 
-        printNumber(num);
-
-    }
-
-    public static void printNumber(int num) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        while (num <= 0) {
+        do {
 
             System.out.print("Introduza um número: ");
             num = scanner.nextInt();
-        }
 
-        for (int i = 0; i < num; i++) {
-            printAsterisk();
-        }
+        } while (num < 0);
+
+        return num;
     }
 
-    public static void printAsterisk() {
-        System.out.print("*");
+    public static void printAsterisk(int num) {
+
+        for (int i = 0; i < num; i++) {
+            System.out.print("*");
+        }
     }
 }
