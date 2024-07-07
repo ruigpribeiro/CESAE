@@ -1,0 +1,84 @@
+body{
+    background-color: bisque;
+    margin: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: bisque;
+    text-align: center;
+}
+
+header>img {
+    width: 50%;
+}
+
+nav{
+    background-color: grey;
+    padding: 5px;
+    margin: 10px;
+   
+}
+nav a {
+    color: white;
+}
+
+nav img {
+    height: 50px;
+}
+main p{
+    text-align: justify;
+}
+
+svg {
+    height: 50px;
+}
+
+.about {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.content {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* comentário em css */
+#texto1 {
+    background-color: red; 
+    color: white;
+}
+
+.texto2 {
+    background-color: blue; 
+    color: white;
+}
+
+footer{
+    position: sticky;
+    bottom: 0;
+    text-align: center;
+    background-color: grey;
+    padding: 5px;
+    margin: 10px;
+}
+a.icon-link {
+    color: red;
+}
+
+a.icon-link:hover {
+    color: darkred;
+}
+
+a.icon-link img,
+a.icon-link svg {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}
+
+/*
+footer p{
+    text-align: center;
+}*/

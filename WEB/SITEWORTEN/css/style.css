@@ -1,0 +1,47 @@
+:root {
+    --corPrimaria: #E51B15;
+    --corSecundaria: #fff;
+    --corTerciaria: #000;
+}
+
+body {
+    font-family: 'Open Sans', 'sans-serif';
+}
+
+header {
+    background-color: var(--corPrimaria);
+    color: var(--corSecundaria);
+}
+
+nav input {
+    background-color: var(--corSecundaria) !important;
+    color: var(--corTerciaria) !important;
+    border-color: var(--corSecundaria) !important;
+}
+
+footer {
+    background-color: var(--corPrimaria);
+    color: var(--corSecundaria);
+}
+
+footer a {
+    color: var(--corSecundaria);
+    padding: 10px;
+    font-size: 20px;
+}
+
+footer a:hover {
+    opacity: 80%;
+}
+
+.btn {
+    background-color: var(--corPrimaria);
+    color: var(--corSecundaria);
+    border: 1px solid var(--corSecundaria);
+}
+
+.btn {
+    background-color: var(--corSecundaria);
+    color: var(--corPrimaria);
+    border: 1px solid var(--corPrimaria);
+}
