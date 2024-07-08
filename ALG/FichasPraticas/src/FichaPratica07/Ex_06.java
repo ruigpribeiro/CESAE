@@ -31,7 +31,7 @@ public class Ex_06 {
             String line = sc.nextLine();
             String[] itemsPerLine = line.split(",");
 
-            if ( Integer.parseInt(itemsPerLine[1]) > oldestAge) {
+            if (Integer.parseInt(itemsPerLine[1]) > oldestAge) {
                 oldestAge = Integer.parseInt(itemsPerLine[1]);
                 oldestName = itemsPerLine[0];
             }
