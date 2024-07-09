@@ -189,6 +189,25 @@ public class Admin {
 
     public static void top5Games(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
 
+        int counter = 0;
+
+        for (int i = 0; i < salesMatrix.length-1; i++) {
+          boolean unique = true;
+
+          for (int j = 0; j < salesMatrix[i].length-1; j++) {
+
+              if (!salesMatrix[i][4].equals(salesMatrix[i+1][4])) {
+                  unique = false;
+                  break;
+              }
+          }
+         if (unique) {
+             counter++;
+         }
+        }
+
+
+
 
         // SAO A VOLTA DE 81 JOGOS
     }

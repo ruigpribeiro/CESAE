@@ -1,45 +1,69 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class GameStart {
     public static void main(String[] args) {
 
-
         try {
-            menuAdmin();
-
-        } catch (FileNotFoundException e) {
+            menuLogin();
+        } catch (Exception e) {
             System.out.println("Ficheiro não encontrado");
         }
 
+
     }
 
-    public static void loginMenu() {
+    public static void menuLogin() throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
+        String tipoUtilizador;
 
-        System.out.print("Tipo de Utilizador (admin/cliente): ");
-        String tipoUtilizador = scanner.nextLine();
+        do {
+            System.out.print("Tipo de Utilizador (admin/cliente): ");
+            tipoUtilizador = scanner.nextLine();
 
-        switch (tipoUtilizador) {
-            case "admin":
-                System.out.print("Username: ");
-                String username = scanner.nextLine();
-                System.out.print("Password: ");
-                String password = scanner.nextLine();
-                loginCheck(username, password);
-            case "client":
-                break;
-        }
+            switch (tipoUtilizador) {
+                case "admin":
+                    System.out.print("Username: ");
+                    String username = scanner.nextLine();
+                    System.out.print("Password: ");
+                    String password = scanner.nextLine();
+
+                    if (loginCheck("src/Ficheiros/GameStart_Admins.csv", username, password)) {
+                        System.out.println("\nLogin efetuado com sucesso!\n");
+                        menuAdmin();
+                    } else {
+                        System.out.println("\nDados incorretos!");
+                    }
+                    break;
+
+                case "client":
+                    menuClient();
+
+                default:
+                    System.out.println("Tipo de utilizador inválido");
+                    break;
+            }
+        } while (!tipoUtilizador.equals("admin") || !tipoUtilizador.equals("client"));
+
+        scanner.close();
     }
 
-    public static boolean loginCheck(String username, String password) {
+    public static boolean loginCheck(String filePath,String username, String password) throws FileNotFoundException {
 
-        if (username.equals("admin") && password.equals("admin")) {
-            System.out.println("Login bem sucedido! Bem-vindo " + username);
-            return true;
+        Scanner scanner = new Scanner(new File(filePath));
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] data = line.split(";");
+
+            if (data[0].equals(username) && data[1].equals(password)) {
+                return true;
+            }
         }
 
+        scanner.close();
         return false;
     }
 
@@ -47,79 +71,92 @@ public class GameStart {
 
         Scanner scanner = new Scanner(System.in);
         int option;
+        System.out.println();
 
+        do {
+            System.out.println("**** MENU ADMIN ****\n");
+            System.out.println("1. Imprimir Ficheiro");
+            System.out.println("2. Total de Vendas");
+            System.out.println("3. Total de Lucro");
+            System.out.println("4. Pesquisar Cliente");
+            System.out.println("5. Jogo Mais Caro");
+            System.out.println("6. Melhores Clientes");
+            System.out.println("7. Melhor Categoria");
+            System.out.println("8. Pesquisar Vendas");
+            System.out.println("9. Top 5 Jogos");
+            System.out.println("10. Bottom 5 Jogos");
+            System.out.println("11. Sair do programa");
+            System.out.print("\nEscolha uma opção: ");
+            option = scanner.nextInt();
 
-        System.out.println("**** MENU ADMIN ****\n");
-        System.out.println("1. Imprimir Ficheiro");
-        System.out.println("2. Total de Vendas");
-        System.out.println("3. Total de Lucro");
-        System.out.println("4. Pesquisar Cliente");
-        System.out.println("5. Jogo Mais Caro");
-        System.out.println("6. Melhores Clientes");
-        System.out.println("7. Melhor Categoria");
-        System.out.println("8. Pesquisar Vendas");
-        System.out.println("9. Top 5 Jogos");
-        System.out.println("10. Bottom 5 Jogos");
-        System.out.print("\nEscolha uma opção: ");
-        option = scanner.nextInt();
+            String[][] salesMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Vendas.csv");
+            String[][] clientsMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv");
+            String[][] categoriesMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Categorias.csv");
 
-        String[][] salesMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Vendas.csv");
-        String[][] clientsMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv");
-        String[][] categoriesMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Categorias.csv");
+            switch (option) {
+                case 1:
+                    int fileOption = printFilesMenu();
+                    switch (fileOption) {
+                        case 1:
+                            Admin.printFiles(salesMatrix);
+                            break;
+                        case 2:
+                            Admin.printFiles(clientsMatrix);
+                            break;
+                        case 3:
+                            Admin.printFiles(categoriesMatrix);
+                            break;
+                        default:
+                            System.out.println("Opção inválida.");
+                            break;
+                    }
+                    break;
+                case 2:
+                    Admin.totalSales(salesMatrix);
+                    break;
+                case 3:
+                    System.out.println(Admin.totalProfit(salesMatrix));
+                    break;
+                case 4:
+                    System.out.print("Introduza o ID do Cliente: ");
+                    String idClient = scanner.next();
+                    Admin.searchClients(clientsMatrix, idClient);
+                    break;
+                case 5:
+                    Admin.mostExpensiveGame(salesMatrix, clientsMatrix);
+                    break;
+                case 6:
+                    Admin.bestClients(salesMatrix, categoriesMatrix);
+                    break;
+                case 7:
+                    Admin.bestCategory(salesMatrix, categoriesMatrix);
+                    break;
+                case 8:
+                    System.out.print("Introduza o nome do jogo: ");
+                    scanner.nextLine();
+                    String game = scanner.nextLine();
+                    Admin.searchByGame(salesMatrix, clientsMatrix, game);
+                    break;
+                case 9:
+                    Admin.top5Games(salesMatrix, clientsMatrix);
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    System.out.println("Goodbye que eu good vou");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+            }
+            System.out.println();
 
-        switch (option) {
-            case 1:
-                int fileOption = fileSecMenu();
-                switch (fileOption) {
-                    case 1:
-                        Admin.printFiles(Admin.readMatrix("src/Ficheiros/GameStart_Vendas.csv"));
-                        break;
-                    case 2:
-                        Admin.printFiles(Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv"));
-                        break;
-                    case 3:
-                        Admin.printFiles(Admin.readMatrix("src/Ficheiros/GameStart_Categorias.csv"));
-                        break;
-                    default:
-                        System.out.println("Opção inválida.");
-                        break;
-                }
-                break;
-            case 2:
-                Admin.totalSales(salesMatrix);
-                break;
-            case 3:
-                System.out.println(Admin.totalProfit(salesMatrix));
-                break;
-            case 4:
-                System.out.print("Introduza o ID do Cliente: ");
-                String idClient = scanner.next();
-                Admin.searchClients(Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv"), idClient);
-                break;
-            case 5:
-                Admin.mostExpensiveGame(salesMatrix, clientsMatrix);
-                break;
-            case 6:
-                Admin.bestClients(salesMatrix, categoriesMatrix);
-                break;
-            case 7:
-                Admin.bestCategory(salesMatrix, categoriesMatrix);
-                break;
-            case 8:
-                System.out.print("Introduza o nome do jogo: ");
-                scanner.nextLine();
-                String game = scanner.nextLine();
-                Admin.searchByGame(salesMatrix, clientsMatrix, game);
-                break;
-            case 9:
-                Admin.top5Games(salesMatrix, clientsMatrix);
-        }
+        } while (option != 11);
 
-
-
+        scanner.close();
     }
 
-    public static int fileSecMenu() {
+    public static int printFilesMenu() {
 
         Scanner scanner = new Scanner(System.in);
 
