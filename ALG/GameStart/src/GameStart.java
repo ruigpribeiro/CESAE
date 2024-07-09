@@ -48,7 +48,6 @@ public class GameStart {
         Scanner scanner = new Scanner(System.in);
         int option;
 
-        String[][] matriz = Admin.matriz("src/Ficheiros/GameStart_Vendas.csv");
 
         System.out.println("**** MENU ADMIN ****\n");
         System.out.println("1. Imprimir Ficheiro");
@@ -64,18 +63,22 @@ public class GameStart {
         System.out.print("\nEscolha uma opção: ");
         option = scanner.nextInt();
 
+        String[][] salesMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Vendas.csv");
+        String[][] clientsMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv");
+        String[][] categoriesMatrix = Admin.readMatrix("src/Ficheiros/GameStart_Categorias.csv");
+
         switch (option) {
             case 1:
                 int fileOption = fileSecMenu();
                 switch (fileOption) {
                     case 1:
-                        Admin.printFiles(Admin.matriz("src/Ficheiros/GameStart_Vendas.csv"));
+                        Admin.printFiles(Admin.readMatrix("src/Ficheiros/GameStart_Vendas.csv"));
                         break;
                     case 2:
-                        Admin.printFiles(Admin.matriz("src/Ficheiros/GameStart_Clientes.csv"));
+                        Admin.printFiles(Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv"));
                         break;
                     case 3:
-                        Admin.printFiles(Admin.matriz("src/Ficheiros/GameStart_Categorias.csv"));
+                        Admin.printFiles(Admin.readMatrix("src/Ficheiros/GameStart_Categorias.csv"));
                         break;
                     default:
                         System.out.println("Opção inválida.");
@@ -83,13 +86,35 @@ public class GameStart {
                 }
                 break;
             case 2:
-                Admin.totalSales(matriz);
+                Admin.totalSales(salesMatrix);
                 break;
             case 3:
-                System.out.println(Admin.totalProfit(matriz));
+                System.out.println(Admin.totalProfit(salesMatrix));
                 break;
-
+            case 4:
+                System.out.print("Introduza o ID do Cliente: ");
+                String idClient = scanner.next();
+                Admin.searchClients(Admin.readMatrix("src/Ficheiros/GameStart_Clientes.csv"), idClient);
+                break;
+            case 5:
+                Admin.mostExpensiveGame(salesMatrix, clientsMatrix);
+                break;
+            case 6:
+                Admin.bestClients(salesMatrix, categoriesMatrix);
+                break;
+            case 7:
+                Admin.bestCategory(salesMatrix, categoriesMatrix);
+                break;
+            case 8:
+                System.out.print("Introduza o nome do jogo: ");
+                scanner.nextLine();
+                String game = scanner.nextLine();
+                Admin.searchByGame(salesMatrix, clientsMatrix, game);
+                break;
+            case 9:
+                Admin.top5Games(salesMatrix, clientsMatrix);
         }
+
 
 
     }
@@ -107,7 +132,7 @@ public class GameStart {
         return scanner.nextInt();
     }
 
-    public static void menuCliente() {
+    public static void menuClient() {
 
         Scanner scanner = new Scanner(System.in);
 
