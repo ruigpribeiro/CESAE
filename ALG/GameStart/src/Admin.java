@@ -5,37 +5,6 @@ import java.util.Scanner;
 
 public class Admin {
 
-    public static String[][] readMatrix(String filePath) throws FileNotFoundException {
-
-        Scanner scanner = new Scanner(new File(filePath));
-        String headerLine = scanner.nextLine(); // Linha do cabeçalho
-
-        int arrayLength = 0;
-
-        // Ciclo para contar o número de linhas
-        while (scanner.hasNextLine()) {
-            scanner.nextLine();
-            arrayLength++;
-        }
-        scanner.close();
-
-        // Ler o ficheiro de novo
-        scanner = new Scanner(new File(filePath));
-        scanner.nextLine(); // Linha do cabeçalho
-
-        String[][] sales = new String[arrayLength][];
-        int index = 0;
-
-        while (scanner.hasNextLine()) {
-            String currentLine = scanner.nextLine();
-            sales[index] = currentLine.split(";");
-            index++;
-        }
-
-        scanner.close();
-        return sales;
-    }
-
     public static void printFiles(String[][] file) throws FileNotFoundException {
 
         for (int i = 0; i < file.length; i++) {
@@ -46,6 +15,7 @@ public class Admin {
         }
     }
 
+    // FUNCIONA
     public static void printFiles(String[][] sales, String[][] clients, String[][] categories) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
@@ -76,59 +46,61 @@ public class Admin {
         }
     }
 
-    public static void totalSales(String[][] file) throws FileNotFoundException {
+    // FUNCIONA
+    public static void totalSales(String[][] sales) throws FileNotFoundException {
 
         int count = 0;
         double total = 0;
 
-        for (int i = 0; i < file.length; i++) {
-            for (int j = 0; j < file[i].length; j++) {
-                total += Double.parseDouble(file[i][5]);
-                count++;
-                break;
-            }
+        for (int i = 0; i < sales.length; i++) {
+            total += Double.parseDouble(sales[i][5]);
+            count++;
+            break;
         }
 
-        System.out.println("Quantidade de Vendas: " + count + " | Valor Total: " + total);
+        System.out.println("Quantidade de Vendas: " + count + " | Valor Total: " + String.format("%.2f", total) + "€");
 
     }
 
-    public static double totalProfit(String[][] file) throws FileNotFoundException {
+    // FUNCIONA
+    public static void totalProfit(String[][] sales) throws FileNotFoundException {
 
         double totalProfit = 0;
+        String[][] categories = GameStart.readMatrix("Ficheiros/GameStart_Categorias.csv");
 
-        String[][] categories = readMatrix("Ficheiros/GameStart_Categorias.csv");
+        for (int i = 0; i < sales.length; i++) {
 
-        for (int i = 0; i < file.length; i++) {
-            String salesCategory = file[i][3];
-            double salesPrice = Double.parseDouble(file[i][5]);
+            String category = sales[i][3];
+            double price = Double.parseDouble(sales[i][5]);
 
-            for (int j = 0; j < file[i].length; j++) {
+            for (int j = 0; j < categories.length; j++) {
 
-                String profitCategory = categories[i][0];
-                double profitMargin = Double.parseDouble(categories[i][1]);
+                String categoryMargin = categories[j][0];
+                double profitMargin = (Double.parseDouble(categories[j][1]) / 100);
 
-                if (salesCategory.equals(profitCategory)) {
-                    totalProfit += salesPrice * profitMargin;
+                if (category.equals(categoryMargin)) {
+                    totalProfit = totalProfit + (price * profitMargin);
                     break;
                 }
             }
         }
-        System.out.println(totalProfit);
-        return totalProfit;
+        System.out.println("Total de Lucro: " + String.format("%.2f", totalProfit) + "€");
     }
 
-    public static void searchClients(String[][] file) throws FileNotFoundException {
+    // FUNCIONA
+    public static void searchClients(String[][] sales) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Introduza o ID do Cliente: ");
         String idClient = scanner.next();
 
-        for (int i = 0; i < file.length; i++) {
-            for (int j = 0; j < file[i].length; j++) {
-                if (file[i][0].equals(idClient)) {
-                    System.out.println("Cliente: " + file[i][1] + " | Contacto: " + file[i][2] + " | Email: " + file[i][3]);
+        for (int i = 0; i < sales.length; i++) {
+            String clientID = sales[i][0];
+
+            for (int j = 0; j < sales[i].length; j++) {
+                if (clientID.equals(idClient)) {
+                    System.out.println("Cliente: " + sales[i][1] + " | Contacto: " + sales[i][2] + " | Email: " + sales[i][3]);
                     break;
                 }
             }
@@ -136,27 +108,32 @@ public class Admin {
 
     }
 
+    // FUNCIONA
     public static void mostExpensiveGame(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
 
         String mostExpensive = "";
-        double price = 0;
+        double currentPrice = 0;
 
         for (int i = 0; i < salesMatrix.length; i++) {
-            for (int j = 0; j < salesMatrix[i].length; j++) {
-                if (Double.parseDouble(salesMatrix[i][5]) > price) {
-                    price = Double.parseDouble(salesMatrix[i][5]);
-                    mostExpensive = salesMatrix[i][4];
-                }
+
+            double price = Double.parseDouble(salesMatrix[i][5]);
+
+            if (price > currentPrice) {
+                currentPrice = price;
+                mostExpensive = salesMatrix[i][4];
             }
         }
 
-        System.out.println("\nO jogo mais caro é " + mostExpensive + "\n");
+        System.out.println("\nJogo mais caro: " + mostExpensive + "\n");
 
         for (int i = 0; i < salesMatrix.length; i++) {
-            if (salesMatrix[i][4].equals(mostExpensive)) {
+            String game = salesMatrix[i][4];
+
+            if (game.equals(mostExpensive)) {
                 for (int j = 0; j < clientsMatrix.length; j++) {
+
                     if (clientsMatrix[j][0].equals(salesMatrix[i][1])) {
-                        System.out.println("ID de Ciente: " + clientsMatrix[j][0] + " | Nome: " + clientsMatrix[j][1]);
+                        System.out.println("Nome: " + clientsMatrix[j][1] + " | Contacto: " + clientsMatrix[j][2] + " | Email: " + clientsMatrix[j][3]);
                     }
                 }
             }
@@ -232,22 +209,20 @@ public class Admin {
 
         int counter = 0;
 
-        for (int i = 0; i < salesMatrix.length-1; i++) {
-          boolean unique = true;
+        for (int i = 0; i < salesMatrix.length - 1; i++) {
+            boolean unique = true;
 
-          for (int j = 0; j < salesMatrix[i].length-1; j++) {
+            for (int j = 0; j < salesMatrix[i].length - 1; j++) {
 
-              if (!salesMatrix[i][4].equals(salesMatrix[i+1][4])) {
-                  unique = false;
-                  break;
-              }
-          }
-         if (unique) {
-             counter++;
-         }
+                if (!salesMatrix[i][4].equals(salesMatrix[i + 1][4])) {
+                    unique = false;
+                    break;
+                }
+            }
+            if (unique) {
+                counter++;
+            }
         }
-
-
 
 
         // SAO A VOLTA DE 81 JOGOS
