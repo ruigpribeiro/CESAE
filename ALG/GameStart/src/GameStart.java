@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GameStart {
@@ -95,32 +96,16 @@ public class GameStart {
 
             switch (option) {
                 case 1:
-                    int fileOption = printFilesMenu();
-                    switch (fileOption) {
-                        case 1:
-                            Admin.printFiles(salesMatrix);
-                            break;
-                        case 2:
-                            Admin.printFiles(clientsMatrix);
-                            break;
-                        case 3:
-                            Admin.printFiles(categoriesMatrix);
-                            break;
-                        default:
-                            System.out.println("Opção inválida.");
-                            break;
-                    }
+                    Admin.printFiles(salesMatrix, clientsMatrix, categoriesMatrix);
                     break;
                 case 2:
                     Admin.totalSales(salesMatrix);
                     break;
                 case 3:
-                    System.out.println(Admin.totalProfit(salesMatrix));
+                    Admin.totalProfit(salesMatrix);
                     break;
                 case 4:
-                    System.out.print("Introduza o ID do Cliente: ");
-                    String idClient = scanner.next();
-                    Admin.searchClients(clientsMatrix, idClient);
+                    Admin.searchClients(clientsMatrix);
                     break;
                 case 5:
                     Admin.mostExpensiveGame(salesMatrix, clientsMatrix);
@@ -154,6 +139,42 @@ public class GameStart {
         } while (option != 11);
 
         scanner.close();
+
+        /*switch (choice) {
+                case 1:
+                    printFiles(sales, clients, commissions, scanner);
+                    break;
+                case 2:
+                    totalSales(sales);
+                    break;
+                case 3:
+                    totalProfit(sales, commissions);
+                    break;
+                case 4:
+                    searchClient(clients, scanner);
+                    break;
+                case 5:
+                    mostExpensiveGame(sales, clients);
+                    break;
+                case 6:
+                    bestClients(sales, clients);
+                    break;
+                case 7:
+                    bestCategory(sales, commissions);
+                    break;
+                case 8:
+                    searchSales(sales, clients, scanner);
+                    break;
+                case 9:
+                    top5Games(sales, commissions);
+                    break;
+                case 10:
+                    bottom5Games(sales, commissions);
+                    break;
+                case 11:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Try again.");*/
     }
 
     public static int printFilesMenu() {

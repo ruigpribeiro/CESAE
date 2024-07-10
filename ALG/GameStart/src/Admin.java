@@ -46,6 +46,36 @@ public class Admin {
         }
     }
 
+    public static void printFiles(String[][] sales, String[][] clients, String[][] categories) throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nFicheiros: \n1. Vendas\n2. Cliente\n3. Categorias");
+        /*
+        System.out.println("1. Vendas");
+        System.out.println("2. Clientes");
+        System.out.println("3. Categorias");
+        System.out.print("\nEscolha uma opção: ");
+
+         */
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                printFiles(sales);
+                break;
+            case 2:
+                printFiles(clients);
+                break;
+            case 3:
+                printFiles(categories);
+                break;
+            default:
+                System.out.println("Opção inválida.");
+        }
+    }
+
     public static void totalSales(String[][] file) throws FileNotFoundException {
 
         int count = 0;
@@ -84,10 +114,16 @@ public class Admin {
                 }
             }
         }
+        System.out.println(totalProfit);
         return totalProfit;
     }
 
-    public static void searchClients(String[][] file, String idClient) throws FileNotFoundException {
+    public static void searchClients(String[][] file) throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Introduza o ID do Cliente: ");
+        String idClient = scanner.next();
 
         for (int i = 0; i < file.length; i++) {
             for (int j = 0; j < file[i].length; j++) {
