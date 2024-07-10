@@ -141,10 +141,61 @@ public class Admin {
 
     }
 
-    public static void bestClients(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
-        // COMPLETAR
+    // FUNCIONA
+    public static void bestClient(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
+
+        String[][] clientsSpending = new String[clientsMatrix.length][2];
+
+        // Ciclo para preencher a primeira coluna com os ids dos clientes
+        for (int i = 0; i < clientsMatrix.length; i++) {
+            clientsSpending[i][0] = clientsMatrix[i][0];
+            clientsSpending[i][1] = "0";
+        }
+
+        // Ciclo para preencher a segunda coluna com o total de vendas dos clientes
+        for (int i = 0; i < salesMatrix.length; i++) {
+            for (int j = 0; j < clientsSpending.length; j++) {
+
+                if (salesMatrix[i][1].equals(clientsSpending[j][0])) {
+                    double currentSpending = Double.parseDouble(clientsSpending[j][1]);
+                    double sales = Double.parseDouble(salesMatrix[i][5]);
+                    currentSpending += sales;
+
+                    clientsSpending[j][1] = String.valueOf(currentSpending);
+                }
+            }
+        }
+
+        String bestClient = "";
+        double mostSpent = 0;
+
+        //Ciclo para encontrar o melhor cliente
+        for (int i = 0; i < clientsSpending.length; i++) {
+
+            if (mostSpent < Double.parseDouble(clientsSpending[i][1])) {
+                mostSpent = Double.parseDouble(clientsSpending[i][1]);
+                bestClient = clientsSpending[i][0];
+            }
+        }
+
+        // Ciclo para imprimir o cliente que mais gastou
+        for (int i = 0; i < clientsMatrix.length; i++) {
+            if (clientsMatrix[i][0].equals(bestClient)) {
+                System.out.println("\nNome: " + clientsMatrix[i][1] + " | Contacto: " + clientsMatrix[i][2] + " | Email: " + clientsMatrix[i][3]);
+                break;
+            }
+        }
+        System.out.println("\nJogos Comprados: ");
+
+        // Ciclo para imprimir todos os jogos comprados
+        for (int i = 0; i < salesMatrix.length; i++) {
+            if (salesMatrix[i][1].equals(bestClient)) {
+                System.out.println(salesMatrix[i][4]);
+            }
+        }
     }
 
+    // FUNCIONA
     public static void bestCategory(String[][] salesMatrix, String[][] categoryMatrix) throws FileNotFoundException {
 
         String[][] profitPerCategory = new String[categoryMatrix.length][2];
@@ -182,15 +233,17 @@ public class Admin {
             }
         }
 
-        System.out.println("Melhor Categoria: " + bestCategory + " | Lucro: " + mostProfit);
+        System.out.println("\nMelhor Categoria: " + bestCategory + " | Lucro: " + String.format("%.2f", mostProfit) + "€");
     }
 
+    // FUNCIONA
     public static void searchByGame(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Introduza o nome do jogo: ");
+        System.out.print("\nIntroduza o nome do jogo: ");
         String game = scanner.nextLine();
+        System.out.println("\nClientes que compraram: ");
 
         for (int i = 0; i < salesMatrix.length; i++) {
             if (salesMatrix[i][4].equals(game)) {

@@ -17,7 +17,7 @@ public class Menu {
             System.out.println("3. Total de Lucro");
             System.out.println("4. Pesquisar Cliente");
             System.out.println("5. Jogo Mais Caro");
-            System.out.println("6. Melhores Clientes");
+            System.out.println("6. Melhor Cliente");
             System.out.println("7. Melhor Categoria");
             System.out.println("8. Pesquisar Vendas");
             System.out.println("9. Top 5 Jogos");
@@ -44,7 +44,7 @@ public class Menu {
                     Admin.mostExpensiveGame(salesMatrix, clientsMatrix);
                     break;
                 case 6:
-                    Admin.bestClients(salesMatrix, categoriesMatrix);
+                    Admin.bestClient(salesMatrix, clientsMatrix);
                     break;
                 case 7:
                     Admin.bestCategory(salesMatrix, categoriesMatrix);
@@ -59,7 +59,7 @@ public class Menu {
                     break;
                 case 11:
                     System.out.println("Goodbye que eu good vou");
-                    return;
+                    break;
                 default:
                     System.out.println("Opção inválida");
             }
@@ -74,7 +74,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         String tipoUtilizador;
 
-        do {
+        while (true) {
             System.out.print("Tipo de Utilizador (admin/client): ");
             tipoUtilizador = scanner.nextLine();
 
@@ -86,17 +86,17 @@ public class Menu {
                     } else {
                         System.out.println("\nDados incorretos!");
                     }
-                    break;
+                    return;
                 case "client":
                     client();
-                    break;
+                    return;
                 default:
                     System.out.println("Tipo de utilizador inválido");
                     break;
             }
-        } while (!tipoUtilizador.equals("admin") || !tipoUtilizador.equals("client"));
 
-        scanner.close();
+            scanner.close();
+        }
     }
 
     public static boolean loginVerification(String filePath) throws FileNotFoundException {
@@ -169,7 +169,7 @@ public class Menu {
             }
             System.out.println();
 
-        } while (option != 9);
+        } while (option == 9);
 
     }
 }

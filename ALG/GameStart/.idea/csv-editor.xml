@@ -31,34 +31,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\Ficheiros\GameStart_Admins.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\Ficheiros\GameStart_Categorias.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\Ficheiros\GameStart_Clientes.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\Ficheiros\GameStart_Vendas.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>
