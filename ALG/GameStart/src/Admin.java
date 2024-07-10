@@ -97,7 +97,7 @@ public class Admin {
 
         double totalProfit = 0;
 
-        String[][] categories = readMatrix("src/Ficheiros/GameStart_Categorias.csv");
+        String[][] categories = readMatrix("Ficheiros/GameStart_Categorias.csv");
 
         for (int i = 0; i < file.length; i++) {
             String salesCategory = file[i][3];
@@ -208,7 +208,12 @@ public class Admin {
         System.out.println("Melhor Categoria: " + bestCategory + " | Lucro: " + mostProfit);
     }
 
-    public static void searchByGame(String[][] salesMatrix, String[][] clientsMatrix, String game) throws FileNotFoundException {
+    public static void searchByGame(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Introduza o nome do jogo: ");
+        String game = scanner.nextLine();
 
         for (int i = 0; i < salesMatrix.length; i++) {
             if (salesMatrix[i][4].equals(game)) {
