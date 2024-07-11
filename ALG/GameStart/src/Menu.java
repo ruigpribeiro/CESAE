@@ -9,7 +9,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         int option = 0;
 
-        while (option != 11 ) {
+        while (option != 11) {
 
             System.out.println("**** MENU ADMIN ****\n");
             System.out.println("1. Imprimir Ficheiro");
@@ -88,7 +88,7 @@ public class Menu {
                     }
                     return;
                 case "client":
-                    client();
+                    client(salesMatrix, clientsMatrix, categoriesMatrix);
                     return;
                 default:
                     System.out.println("Tipo de utilizador inválido");
@@ -122,7 +122,7 @@ public class Menu {
         return false;
     }
 
-    public static void client() {
+    public static void client(String[][] salesMatrix, String[][] clientsMatrix, String[][] categoriesMatrix) throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
         int option;
@@ -141,25 +141,28 @@ public class Menu {
 
             switch (option) {
                 case 1:
-                    //Admin.printFiles(salesMatrix, clientsMatrix, categoriesMatrix);
+                    Client.registClient();
                     break;
                 case 2:
                     Client.searchCarParking();
                     break;
                 case 3:
-                    //Admin.totalProfit(salesMatrix);
+                    String[] uniqueGames = Client.printCatalog(salesMatrix);
+                    for (int i = 0; i < uniqueGames.length; i++) {
+                        System.out.println(uniqueGames[i]);
+                    }
                     break;
                 case 4:
-                    //Admin.searchClients(clientsMatrix);
+                    Client.printCatalogGraphics();
                     break;
                 case 5:
-                    //Admin.mostExpensiveGame(salesMatrix, clientsMatrix);
+                    Client.printPublisherCatalog(salesMatrix);
                     break;
                 case 6:
-                    //Admin.bestClients(salesMatrix, categoriesMatrix);
+                    Client.printCategoryCatalog(salesMatrix, categoriesMatrix);
                     break;
                 case 7:
-                    //Admin.bestCategory(salesMatrix, categoriesMatrix);
+                    Client.mostRecentGame(salesMatrix);
                     break;
                 case 9:
                     System.out.println("Goodbye que eu good vou");

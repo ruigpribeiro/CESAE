@@ -1,6 +1,4 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Admin {
@@ -21,13 +19,6 @@ public class Admin {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nFicheiros: \n1. Vendas\n2. Cliente\n3. Categorias");
-        /*
-        System.out.println("1. Vendas");
-        System.out.println("2. Clientes");
-        System.out.println("3. Categorias");
-        System.out.print("\nEscolha uma opção: ");
-
-         */
 
         int choice = scanner.nextInt();
 
@@ -55,7 +46,6 @@ public class Admin {
         for (int i = 0; i < sales.length; i++) {
             total += Double.parseDouble(sales[i][5]);
             count++;
-            break;
         }
 
         System.out.println("Quantidade de Vendas: " + count + " | Valor Total: " + String.format("%.2f", total) + "€");
@@ -157,6 +147,7 @@ public class Admin {
             for (int j = 0; j < clientsSpending.length; j++) {
 
                 if (salesMatrix[i][1].equals(clientsSpending[j][0])) {
+
                     double currentSpending = Double.parseDouble(clientsSpending[j][1]);
                     double sales = Double.parseDouble(salesMatrix[i][5]);
                     currentSpending += sales;
