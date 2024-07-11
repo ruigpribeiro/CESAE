@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -72,7 +73,7 @@ public class Client {
         return finalUniqueArray;
     }
 
-    // FUNCIONA MAS FAZ EXIT DEPOIS DE APRESENTAR O TXT
+    // FUNCIONA
     public static void printCatalogGraphics() throws FileNotFoundException {
 
         Scanner scanner = new Scanner(System.in);
@@ -125,48 +126,97 @@ public class Client {
 
     }
 
-    // FUNCIONA MAS REPETE OS JOGOS TODOS E NÃO MOSTRA OS UNICOS
+    // FUNCIONA
     public static void printPublisherCatalog(String[][] sales) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Editora a pesquisar: ");
         String publisher = scanner.nextLine();
 
-        String[] games = new String[sales.length];
         int count = 0;
 
+        // Ciclo para contar tudo o que seja da mesma editora introduzida
         for (int i = 0; i < sales.length; i++) {
             if (sales[i][2].equals(publisher)) {
-                games[count] = sales[i][4];
                 count++;
             }
         }
 
-        String currentGame = "";
+        String[][] categoriesAndGames = new String[count][2];
+        // Ciclo para preencher a matriz com a categoria e o jogo
+        for (int i = 0; i < categoriesAndGames.length; i++) {
+            if (sales[i][2].equals(publisher)) {
+                categoriesAndGames[i][0] = sales[i][3];
+                categoriesAndGames[i][1] = sales[i][4];
+            }
+        }
 
-        for (int i = 0; i < count; i++) {
 
-            if (games[i] != null && !games[i].equals(currentGame)) {
-                System.out.println(games[i]);
-                currentGame = games[i];
+        // Ciclo para apresentar os jogos dividos por categoria, pertencentes à mesma editora introduzida
+        for (int i = 0; i < categoriesAndGames.length; i++) {
+
+            String category = categoriesAndGames[i][0];
+
+            if (categoriesAndGames[i][0] != null) {
+                System.out.println("\nCategoria: " + category);
             }
 
+            for (int j = 0; j < categoriesAndGames.length; j++) {
+
+                if (categoriesAndGames[j][0] != null && categoriesAndGames[j][0].equals(category)) {
+                    System.out.println(categoriesAndGames[j][1]);
+                    categoriesAndGames[j][0] = null; // Substitui a categoria por null para não repetir
+                }
+            }
         }
     }
 
-    // FUNCIONA MAS REPETE TUDO
+    // FUNCIONA
     public static void printCategoryCatalog(String[][] sales, String[][] categories) {
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Introduza a categoria: ");
         String category = scanner.nextLine();
 
+        int count = 0;
+
+        // Ciclo para contar tudo o que seja da mesma categoria introduzida
         for (int i = 0; i < sales.length; i++) {
             if (sales[i][3].equals(category)) {
-                System.out.println("Editora: " + sales[i][2] + " | Jogo: " + sales[i][4]);
+                count++;
             }
         }
+
+        String[][] publishersAndGames = new String[count][2];
+        // Ciclo para preencher a matriz com a editora e o jogo
+        for (int i = 0; i < publishersAndGames.length; i++) {
+            if (sales[i][3].equals(category)) {
+                publishersAndGames[i][0] = sales[i][2]; // Editora
+                publishersAndGames[i][1] = sales[i][4]; // Jogo
+            }
+        }
+
+
+
+        // Ciclo para apresentar os jogos dividos por editora, pertencentes à mesma categoria
+        for (int i = 0; i < publishersAndGames.length; i++) {
+
+            String publisher = publishersAndGames[i][0];
+
+            if (publishersAndGames[i][0] != null) {
+                System.out.println("\nEditora: " + publisher);
+            }
+
+            for (int j = 0; j < publishersAndGames.length; j++) {
+
+                if (publishersAndGames[j][0] != null && publishersAndGames[j][0].equals(publisher)) {
+                    System.out.println(publishersAndGames[j][1]);
+                    publishersAndGames[j][0] = null; // Substitui a editora por null para não repetir
+                }
+            }
+        }
+
+
     }
 
     // FUNCIONA
