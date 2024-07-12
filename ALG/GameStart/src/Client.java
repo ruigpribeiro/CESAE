@@ -26,11 +26,7 @@ public class Client {
     // FUNCIONA
     public static void searchCarParking() {
 
-        for (int i = 1; i <= 121; i++) {
-            if ((i * (i + 1) / 2) % 5 == 0) {
-                System.out.println("Lugares Disponiveis: " + i);
-            }
-        }
+
     }
 
     // FUNCIONA
@@ -208,7 +204,6 @@ public class Client {
             }
 
             for (int j = 0; j < publishersAndGames.length; j++) {
-
 
                 if (publishersAndGames[j][0] != null && publishersAndGames[j][0].equals(publisher)) {
                     System.out.println(publishersAndGames[j][1]);

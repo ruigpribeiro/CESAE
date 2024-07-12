@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Admin {
@@ -250,7 +249,7 @@ public class Admin {
         }
     }
 
-    public static String[][] top5Games(String[][] salesMatrix, String[][] categoriesMatrix) throws FileNotFoundException {
+    public static String[][] topAndBottom5(String[][] salesMatrix, String[][] categoriesMatrix) throws FileNotFoundException {
 
         String[][] gamesDuplicated = new String[salesMatrix.length][2];
 
@@ -316,7 +315,7 @@ public class Admin {
             }
         }
 
-        // Buble sort para ordenar a matriz com base no lucro
+        // Ciclo para ordenar a matriz com buble sort
         for (int i = 0; i < finalMatrix.length; i++) {
             for (int j = 0; j < finalMatrix.length - i - 1; j++) {
 

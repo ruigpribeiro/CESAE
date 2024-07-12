@@ -53,7 +53,7 @@ public class Menu {
                     Admin.searchByGame(salesMatrix, clientsMatrix);
                     break;
                 case 9:
-                    String[][] matrizTop = Admin.top5Games(salesMatrix, categoriesMatrix);
+                    String[][] matrizTop = Admin.topAndBottom5(salesMatrix, categoriesMatrix);
                     int count = 1;
                     for (int i = matrizTop.length - 1; i >= matrizTop.length - 5; i--) {
                         System.out.println("Top " + count + ": " + matrizTop[i][0] + " com lucro de " + String.format("%.2f",Double.parseDouble(matrizTop[i][1])) + "€");
@@ -61,13 +61,13 @@ public class Menu {
                     }
                     break;
                 case 10:
-                    String[][] matrizBottom = Admin.top5Games(salesMatrix, categoriesMatrix);
+                    String[][] matrizBottom = Admin.topAndBottom5(salesMatrix, categoriesMatrix);
                     for (int i = 1; i <= 5; i++) {
                         System.out.println("Bottom " + i + ": " + matrizBottom[i][0] + " com lucro de " + String.format("%.2f", Double.parseDouble(matrizBottom[i][1])) + "€");
                     }
                     break;
                 case 11:
-                    System.out.println("Goodbye que eu good vou");
+                    copyright();
                     break;
                 default:
                     System.out.println("Opção inválida");
@@ -145,6 +145,7 @@ public class Menu {
             System.out.println("5. Imprimir Catálogo Editora");
             System.out.println("6. Imprimir Catálogo Categoria");
             System.out.println("7. Imprimir Jogo Mais Recente");
+            System.out.println("8. Sair do programa");
             System.out.print("\nEscolha uma opção: ");
             option = scanner.nextInt();
 
@@ -173,14 +174,24 @@ public class Menu {
                 case 7:
                     Client.mostRecentGame(salesMatrix);
                     break;
-                case 9:
-                    System.out.println("Goodbye que eu good vou");
+                case 8:
+                    copyright();
                     return;
                 default:
                     System.out.println("Opção inválida");
             }
             System.out.println();
 
-        } while (option == 9);
+        } while (option != 8);
+    }
+
+    public static void copyright() throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(new File("Ficheiros/GameStart_Copyright.txt"));
+
+        while (scanner.hasNextLine()) {
+            String currentLine = scanner.nextLine();
+            System.out.println(currentLine);
+        }
     }
 }
