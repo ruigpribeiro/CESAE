@@ -53,9 +53,18 @@ public class Menu {
                     Admin.searchByGame(salesMatrix, clientsMatrix);
                     break;
                 case 9:
-                    Admin.top5Games(salesMatrix, clientsMatrix);
+                    String[][] matrizTop = Admin.top5Games(salesMatrix, categoriesMatrix);
+                    int count = 1;
+                    for (int i = matrizTop.length - 1; i >= matrizTop.length - 5; i--) {
+                        System.out.println("Top " + count + ": " + matrizTop[i][0] + " com lucro de " + String.format("%.2f",Double.parseDouble(matrizTop[i][1])) + "€");
+                        count++;
+                    }
                     break;
                 case 10:
+                    String[][] matrizBottom = Admin.top5Games(salesMatrix, categoriesMatrix);
+                    for (int i = 1; i <= 5; i++) {
+                        System.out.println("Bottom " + i + ": " + matrizBottom[i][0] + " com lucro de " + String.format("%.2f", Double.parseDouble(matrizBottom[i][1])) + "€");
+                    }
                     break;
                 case 11:
                     System.out.println("Goodbye que eu good vou");
@@ -173,6 +182,5 @@ public class Menu {
             System.out.println();
 
         } while (option == 9);
-
     }
 }

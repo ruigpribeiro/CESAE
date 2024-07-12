@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Admin {
@@ -249,28 +250,88 @@ public class Admin {
         }
     }
 
-    public static void top5Games(String[][] salesMatrix, String[][] clientsMatrix) throws FileNotFoundException {
+    public static String[][] top5Games(String[][] salesMatrix, String[][] categoriesMatrix) throws FileNotFoundException {
 
-        int counter = 0;
+        String[][] gamesDuplicated = new String[salesMatrix.length][2];
 
-        for (int i = 0; i < salesMatrix.length - 1; i++) {
-            boolean unique = true;
+        // Ciclo para preencher a matriz gamesDuplicated com os todos os jogos e profit do ficheiro vendas
+        for (int i = 0; i < salesMatrix.length; i++) {
+            String category = salesMatrix[i][3];
+            gamesDuplicated[i][0] = salesMatrix[i][4];
 
-            for (int j = 0; j < salesMatrix[i].length - 1; j++) {
+            for (int j = 0; j < categoriesMatrix.length; j++) {
+                String categoryMargin = categoriesMatrix[j][0];
+                double profitMargin = Double.parseDouble(categoriesMatrix[j][1]) / 100;
 
-                if (!salesMatrix[i][4].equals(salesMatrix[i + 1][4])) {
-                    unique = false;
+                if (category.equals(categoryMargin)) {
+                    double salesAmount = Double.parseDouble(salesMatrix[i][5]);
+                    gamesDuplicated[i][1] = String.valueOf(salesAmount * profitMargin);
                     break;
                 }
             }
-            if (unique) {
-                counter++;
+        }
+
+        String[][] uniqueGames = new String[salesMatrix.length][2];
+        int index = 0;
+        boolean found;
+
+        // Ciclo para criar uma matriz sem os jogos duplicados
+        for (int i = 0; i < gamesDuplicated.length; i++) {
+            found = false;
+            String game = gamesDuplicated[i][0];
+
+            for (int j = 0; j < uniqueGames.length; j++) {
+
+                if (uniqueGames[j][0] != null && uniqueGames[j][0].equals(game)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                uniqueGames[index][0] = game;
+                uniqueGames[index][1] = null;
+                index++;
             }
         }
 
+        // Ciclo para preencher o lucro no array uniqueGames
+        for (int i = 0; i < uniqueGames.length; i++) {
+            double totalProfit = 0;
 
-        // SAO A VOLTA DE 81 JOGOS
+            for (int j = 0; j < gamesDuplicated.length; j++) {
+
+                if (uniqueGames[i][0] != null && uniqueGames[i][0].equals(gamesDuplicated[j][0])) {
+                    totalProfit += Double.parseDouble(gamesDuplicated[j][1]);
+                }
+            }
+            uniqueGames[i][1] = String.valueOf(totalProfit);
+        }
+
+        String[][] finalMatrix = new String[index][2];
+
+        for (int i = 0; i < finalMatrix.length; i++) {
+            for (int j = 0; j < finalMatrix[i].length; j++) {
+                finalMatrix[i][j] = uniqueGames[i][j];
+            }
+        }
+
+        // Buble sort para ordenar a matriz com base no lucro
+        for (int i = 0; i < finalMatrix.length; i++) {
+            for (int j = 0; j < finalMatrix.length - i - 1; j++) {
+
+                if (Double.parseDouble(finalMatrix[j][1]) > Double.parseDouble(finalMatrix[j + 1][1])) {
+                    String temp = finalMatrix[j][1];
+                    finalMatrix[j][1] = finalMatrix[j + 1][1];
+                    finalMatrix[j + 1][1] = temp;
+
+                    String game = finalMatrix[j][0];
+                    finalMatrix[j][0] = finalMatrix[j + 1][0];
+                    finalMatrix[j + 1][0] = game;
+                }
+            }
+        }
+
+        return finalMatrix;
     }
-
-    // PARA O TOP TALVEZ UTILIZAR O BUBLE SHORT PARA REORDENAR A ARRAY POR VALORES E DEPOIS IMPRIMIR
 }

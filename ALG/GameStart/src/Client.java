@@ -209,6 +209,7 @@ public class Client {
 
             for (int j = 0; j < publishersAndGames.length; j++) {
 
+
                 if (publishersAndGames[j][0] != null && publishersAndGames[j][0].equals(publisher)) {
                     System.out.println(publishersAndGames[j][1]);
                     publishersAndGames[j][0] = null; // Substitui a editora por null para não repetir

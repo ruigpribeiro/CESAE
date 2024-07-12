@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class GameStart {
     public static void main(String[] args) {
         try {
-
             String[][] salesMatrix = readMatrix("Ficheiros/GameStart_Vendas.csv");
             String[][] clientsMatrix = readMatrix("Ficheiros/GameStart_Clientes.csv");
             String[][] categoriesMatrix = readMatrix("Ficheiros/GameStart_Categorias.csv");
@@ -13,7 +12,7 @@ public class GameStart {
             Menu.login(salesMatrix, clientsMatrix, categoriesMatrix);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ficheiro não encontrado: " + e.getMessage());
         }
     }
 
