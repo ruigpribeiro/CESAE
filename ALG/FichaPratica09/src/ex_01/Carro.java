@@ -44,9 +44,9 @@ public class Carro {
             return this;
         }
 
-        if (adversario.getCilindrada() < cilindrada) {
+        if (cilindrada < adversario.getCilindrada()) {
             return adversario;
-        } else if (adversario.getCilindrada() > cilindrada) {
+        } else if (cilindrada > adversario.getCilindrada()) {
             return this;
         }
 

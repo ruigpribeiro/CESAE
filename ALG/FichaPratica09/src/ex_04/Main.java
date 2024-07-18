@@ -13,6 +13,5 @@ public class Main {
         Imovel compararImovel = imovel.compararImoveis(imovel2);
         compararImovel.imprimirDescricao();
 
-
     }
 }
