@@ -10,10 +10,9 @@ public class Main {
 
         if (vencedor == null) {
             System.out.println("Empate Técnico");
-        } else if (vencedor == bmw) {
-            System.out.println("BMW é o vencedor");
         } else {
-            System.out.println("MERCEDES é o vencedor");
+            System.out.println(vencedor);
         }
+
     }
 }

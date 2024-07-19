@@ -28,7 +28,7 @@ public class Carro {
             System.out.println("Vrum-vrum-vrum");
         }
 
-        if ((2024 - ano) < 30 && potencia >= 250) {
+        if ((2024 - ano) <= 30 && potencia >= 250) {
             System.out.println("O carro está ligado!");
             System.out.println("VRUUMMMMMM");
         } else if ((2024 - ano) < 30 && potencia < 250) {
@@ -38,24 +38,28 @@ public class Carro {
     }
 
     public Carro corrida(Carro adversario) {
-        if (potencia < adversario.getPotencia()) {
+        // potencia
+        if (potencia < adversario.potencia) {
             return adversario;
-        } else if (potencia > adversario.getPotencia()) {
+        } else if (potencia > adversario.potencia) {
             return this;
         }
 
-        if (cilindrada < adversario.getCilindrada()) {
+        // cilindrada
+        if (cilindrada < adversario.cilindrada) {
             return adversario;
-        } else if (cilindrada > adversario.getCilindrada()) {
+        } else if (cilindrada > adversario.cilindrada) {
             return this;
         }
 
-        if (ano < adversario.getAno()) {
+        // ano
+        if (ano < adversario.ano) {
             return adversario;
-        } else if (ano > adversario.getAno()) {
+        } else if (ano > adversario.ano) {
             return this;
         }
 
+        // Empate
         return null;
     }
 
@@ -63,62 +67,16 @@ public class Carro {
         return (distanciaKm / 100) * litros100Km;
     }
 
-
-    // GETTERS AND SETTERS
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public int getPotencia() {
-        return potencia;
-    }
-
-    public void setPotencia(int potencia) {
-        this.potencia = potencia;
-    }
-
-    public int getCilindrada() {
-        return cilindrada;
-    }
-
-    public void setCilindrada(int cilindrada) {
-        this.cilindrada = cilindrada;
-    }
-
-    public TipoCombustivel getTipoCombustivel() {
-        return tipoCombustivel;
-    }
-
-    public void setTipoCombustivel(TipoCombustivel tipoCombustivel) {
-        this.tipoCombustivel = tipoCombustivel;
-    }
-
-    public double getLitros100Km() {
-        return litros100Km;
-    }
-
-    public void setLitros100Km(int litros100Km) {
-        this.litros100Km = litros100Km;
+    @Override
+    public String toString() {
+        return "Carro{" +
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", ano=" + ano +
+                ", potencia=" + potencia +
+                ", cilindrada=" + cilindrada +
+                ", tipoCombustivel=" + tipoCombustivel +
+                ", litros100Km=" + litros100Km +
+                '}';
     }
 }

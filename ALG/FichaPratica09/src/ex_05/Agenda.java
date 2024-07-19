@@ -1,7 +1,7 @@
 package ex_05;
 
 public class Agenda {
-    Pessoa[] arrayPessoas = new Pessoa[20];
+    private Pessoa[] arrayPessoas = new Pessoa[20];
 
     // Adicionar pessoas
     public void adicionarPessoas(Pessoa pessoa) {
