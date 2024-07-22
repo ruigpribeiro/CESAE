@@ -1,4 +1,4 @@
-package ex_02;
+package ex_01;
 
 public class Musica {
     private String titulo;

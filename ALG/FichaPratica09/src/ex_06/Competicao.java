@@ -3,12 +3,13 @@ package ex_06;
 public class Competicao {
     private String nomeCompeticao;
     private String paisCompeticao;
-    private Atleta[] listaAtletas = new Atleta[30];
+    private Atleta[] listaAtletas;
 
     // Construtor
     public Competicao(String nomeCompeticao, String paisCompeticao) {
         this.nomeCompeticao = nomeCompeticao;
         this.paisCompeticao = paisCompeticao;
+        listaAtletas = new Atleta[30];
     }
 
     // Adicionar atletas à array de atletas

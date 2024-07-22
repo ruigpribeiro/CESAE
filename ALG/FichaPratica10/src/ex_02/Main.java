@@ -3,23 +3,19 @@ package ex_02;
 public class Main {
     public static void main(String[] args) {
 
-        Musica musica1 = new Musica("Menino 1", "Rock", "Tony", 180);
-        Musica musica2 = new Musica("Menino 2", "Jazz", "Maria", 240);
-        Musica musica3 = new Musica("Menino 3", "Classical", "John", 300);
-        Musica musica4 = new Musica("Menino 4", "Pop", "Anna", 210);
-        Musica musica5 = new Musica("Menino 5", "Hip Hop", "Mike", 220);
-        Musica musica6 = new Musica("Menino 6", "Electronic", "Sara", 260);
+        Pessoa pessoa1 = new Pessoa("Rui", 26, 91845265, "ruiguilhermeribeiro@gmail.com");
+        Pessoa pessoa2 = new Pessoa("Vitor", 20, 91863225, "ruiguilhermeribeiro@gmail.com");
+        Pessoa pessoa3 = new Pessoa("Pedro", 24, 59578456, "ruiguilhermeribeiro@gmail.com");
+        Pessoa pessoa4 = new Pessoa("David", 30, 42852612, "ruiguilhermeribeiro@gmail.com");
+        Pessoa pessoa5 = new Pessoa("Zé da Esquina", 19, 42000042, "ruiguilhermeribeiro@gmail.com");
 
-        MusicPlayer musicPlayer = new MusicPlayer();
-        musicPlayer.adicionarMusica(musica1);
-        musicPlayer.adicionarMusica(musica2);
-        musicPlayer.adicionarMusica(musica3);
-        musicPlayer.adicionarMusica(musica4);
-        musicPlayer.adicionarMusica(musica5);
-        musicPlayer.adicionarMusica(musica6);
+        Sorteio sorteio = new Sorteio();
+        sorteio.adicionarParticipante(pessoa1);
+        sorteio.adicionarParticipante(pessoa2);
+        sorteio.adicionarParticipante(pessoa3);
+        sorteio.adicionarParticipante(pessoa4);
+        sorteio.adicionarParticipante(pessoa5);
 
-        musicPlayer.trocarMusica(0,5);
-        musicPlayer.imprimirRelatorio();
-
+        sorteio.imprimirListaParticipantes();
     }
 }
