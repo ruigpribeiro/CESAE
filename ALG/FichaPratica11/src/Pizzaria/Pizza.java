@@ -2,40 +2,38 @@ package Pizzaria;
 
 import Pizzaria.enums.TamanhoPizza;
 import Pizzaria.ingredientes.Ingrediente;
+import Pizzaria.ingredientes.IngredientePizza;
 import Pizzaria.ingredientes.base.Base;
-import Pizzaria.ingredientes.topping.Carne;
-import Pizzaria.ingredientes.topping.Queijo;
-import Pizzaria.ingredientes.topping.Topping;
-import Pizzaria.ingredientes.topping.Vegetal;
+import Pizzaria.ingredientes.topping.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pizza {
     private final int MAX_INGREDIENTES = 5;
-    private String codigo;
+    private int id;
     private String nome;
     private String descricao;
     private double preco;
-    private TamanhoPizza tamanhoPizza;
+    private TamanhoPizza tamanho;
     private List<IngredientePizza> listaIngredientes;
     private Base basePizza;
 
     /**
      * Método Construtor que recebe um código, um nome, uma descrição, um preço e o tamanho
      *
-     * @param codigo       Codigo da Pizza
-     * @param nome         Nome da Pizza
-     * @param descricao    Descrição breve da Pizza
-     * @param preco        Valor da Pizza em €
-     * @param tamanhoPizza Tamanho da Pizzza
+     * @param id        Id da Pizza
+     * @param nome      Nome da Pizza
+     * @param descricao Descrição breve da Pizza
+     * @param preco     Valor da Pizza em €
+     * @param tamanho   Tamanho da Pizzza
      */
-    public Pizza(String codigo, String nome, String descricao, double preco, TamanhoPizza tamanhoPizza) {
-        this.codigo = codigo;
+    public Pizza(int id, String nome, String descricao, double preco, TamanhoPizza tamanho) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.tamanhoPizza = tamanhoPizza;
+        this.tamanho = tamanho;
         listaIngredientes = new ArrayList<>();
     }
 
@@ -44,10 +42,10 @@ public class Pizza {
      *
      * @param ingrediente Ingrediente a adicionar à pizza
      */
-    public void adicionarIngredientes(Ingrediente ingrediente, int quantidade) {
+    public void adicionarIngrediente(Ingrediente ingrediente, int quantidade) {
 
         if (basePizza != null) {
-            // Já tem base (base que é o array na posição 0 não é nula)
+            // Já tem base
             if (listaIngredientes.size() < MAX_INGREDIENTES && ingrediente instanceof Topping) {
                 listaIngredientes.add(new IngredientePizza(ingrediente, quantidade));
                 return;
@@ -68,13 +66,13 @@ public class Pizza {
     /**
      * Editar a quantidade de um ingrediente que pertence à pizza
      *
-     * @param codigo         Código do ingrediente
-     * @param novaQuantidade Nova quantidade a inserir
+     * @param id         Id do ingrediente
+     * @param quantidade Nova quantidade a inserir
      */
-    public void editarQuantidade(String codigo, int novaQuantidade) {
-        for (IngredientePizza ingredientePizza : listaIngredientes) {
-            if (ingredientePizza.getIngrediente().getCodigo().equals(codigo)) {
-                ingredientePizza.setQuantidade(novaQuantidade);
+    public void editarQuantidade(int id, int quantidade) {
+        for (IngredientePizza ingredientes : listaIngredientes) {
+            if (ingredientes.getIngrediente().getId() == id) {
+                ingredientes.setQuantidade(quantidade);
                 return;
             }
         }
@@ -82,15 +80,15 @@ public class Pizza {
     }
 
     /**
-     * Remove um ingrediente à pizza pelo seu código
+     * Remove um ingrediente à pizza pelo seu id
      *
-     * @param codigo Código do ingrediente a ser removido
+     * @param id Id do ingrediente a ser removido
      */
-    public void removerIngrediente(String codigo) {
+    public void removerIngrediente(int id) {
         for (IngredientePizza ingredientePizza : listaIngredientes) {
-            String ingredienteCodigo = ingredientePizza.getIngrediente().getCodigo();
+            int ingredienteId = ingredientePizza.getIngrediente().getId();
 
-            if (ingredienteCodigo.equals(codigo)) {
+            if (ingredienteId == id) {
                 listaIngredientes.remove(ingredientePizza);
                 return;
             }
@@ -117,47 +115,54 @@ public class Pizza {
     /**
      * Imprime o tipo de pizza com base nos ingredientes
      */
-    public void tipoPizza() {
+    public String tipoPizza() {
         int countCarne = 0;
         int countVegetal = 0;
         int countQueijo = 0;
+        int countFrutoMar = 0;
 
         for (IngredientePizza ingredientePizza : listaIngredientes) {
-
             Ingrediente ingrediente = ingredientePizza.getIngrediente();
 
             if (ingrediente instanceof Carne) {
                 countCarne++;
             }
-
             if (ingrediente instanceof Vegetal) {
                 countVegetal++;
             }
-
             if (ingrediente instanceof Queijo) {
                 countQueijo++;
             }
+            if (ingrediente instanceof FrutoMar) {
+                countFrutoMar++;
+            }
         }
 
-        if (countCarne == listaIngredientes.size()-1) {
-            System.out.println("Pizza de Carne");
+        if (countCarne == listaIngredientes.size() - 1) {
+            return "Pizza de Carne";
+        }
+        if (countVegetal == listaIngredientes.size() - 1) {
+            return "Pizza Vegetariana";
+        }
+        if (countQueijo == listaIngredientes.size() - 1) {
+            return "Pizza de Queijo";
+        }
+        if (countFrutoMar == listaIngredientes.size() - 1) {
+            return "Pizza do Mar";
+        }
+        if (countCarne > 0 && countVegetal > 0 && countQueijo > 0 && countFrutoMar > 0) {
+            return "Pizza Completa";
         }
 
-        if (countVegetal == listaIngredientes.size()-1) {
-            System.out.println("Pizza de Vegetal");
-        }
-
-        if (countQueijo == listaIngredientes.size()-1) {
-            System.out.println("Pizza de Queijo");
-        }
+        return "Pizza Mista";
     }
 
     /**
      * Descrição detalhada dos ingredientes da coleção de IngredientePizza
      */
-    public void descricaoDetalhada() {
+    public String descricaoDetalhada() {
         System.out.println("***************** " + nome + " *****************");
-        String descricaoDetalhada = "Descrição: " + descricao + "\nTamanho: " + tamanhoPizza +
+        String descricaoDetalhada = "Descrição: " + descricao + "\nTamanho: " + tamanho +
                 String.format("\nPreço: %.2f", preco) + "€" + "\nIngredientes:\n";
 
         for (IngredientePizza ingredientes : listaIngredientes) {
@@ -171,6 +176,6 @@ public class Pizza {
                     ", Quantidade: " + ingredientes.getQuantidade() + "\n";
         }
         descricaoDetalhada += String.format("\nCalorias totais: %.2f Kcal%n", caloriasPizza());
-        System.out.println(descricaoDetalhada);
+        return descricaoDetalhada;
     }
 }

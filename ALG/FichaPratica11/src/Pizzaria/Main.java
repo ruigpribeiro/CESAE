@@ -1,37 +1,43 @@
 package Pizzaria;
 
 import Pizzaria.enums.*;
+import Pizzaria.ingredientes.Ingrediente;
+import Pizzaria.ingredientes.IngredientePizza;
 import Pizzaria.ingredientes.base.Base;
 import Pizzaria.ingredientes.topping.Carne;
+import Pizzaria.ingredientes.topping.FrutoMar;
 import Pizzaria.ingredientes.topping.Queijo;
+import Pizzaria.ingredientes.topping.Vegetal;
 
 public class Main {
     public static void main(String[] args) {
 
-        // Instanciação de uma pizza
-        Pizza pizzaChourico = new Pizza("1", "Pizza de Chouriço", "Pizza tradicional com ingredientes " +
-                "nacionais", 19.90, TamanhoPizza.GRANDE);
-        Pizza pizza4Estacoes = new Pizza("2", "Pizza 4 Estações", "Pizza tradicional com sabores nacionais",
-                15.90, TamanhoPizza.MEDIA);
+        // Instanciar os ingredientes
+        Base massaFina = new Base(1, "Massa Fina", 200, BasePizza.MASSA_FINA, "Massa fina e crocante");
+        Queijo mozarela = new Queijo(2, "Mozarela", UnidadeMedida.GRAMAS, 10, OrigemIngrediente.NACIONAL, TipoQueijo.MOZZARELA);
+        Carne chourico = new Carne(3, "Chouriço", UnidadeMedida.GRAMAS, 20, OrigemIngrediente.NACIONAL, TipoCarne.CHOURICO);
+        FrutoMar camarao = new FrutoMar(4, "Camarão", UnidadeMedida.GRAMAS, 15, OrigemIngrediente.IMPORTADO, TipoFrutoMar.CAMARAO);
+        Vegetal tomate = new Vegetal(5, "Tomate", UnidadeMedida.GRAMAS, 5, OrigemIngrediente.NACIONAL, TipoVegetal.TOMATE);
 
-        // Adicionar os ingredientes a uma pizza de carne
-        pizzaChourico.adicionarIngredientes(new Base("1", "Massa Tracional", UnidadeMedida.GRAMAS, 450,
-                BasePizza.MASSA_FINA, "FDSFSD"), 1);
-        pizzaChourico.adicionarIngredientes(new Carne("4", "Chouriço Picante", UnidadeMedida.UNIDADES, 10,
-                OrigemIngrediente.NACIONAL, TipoCarne.CHOURICO), 15);
+        // Criar a pizza
+        Pizza pizza = new Pizza(1, "Especial da Casa", "Uma deliciosa pizza com ingredientes selecionados", 12.99, TamanhoPizza.GRANDE);
 
-        // Adicionar os ingredientes a uma pizza de queijo
-        pizza4Estacoes.adicionarIngredientes(new Base("1", "Massa Tracional", UnidadeMedida.GRAMAS, 450,
-                BasePizza.MASSA_FINA, "FDSFSD"), 1);
-        pizza4Estacoes.adicionarIngredientes(new Queijo("2", "Queijo Mozzarela", UnidadeMedida.GRAMAS, 105,
-                OrigemIngrediente.NACIONAL, TipoQueijo.MOZZARELA), 3);
+        // Adicionar a base primeiro
+        System.out.println("Adicionando base à pizza...");
+        pizza.adicionarIngrediente(massaFina, 100);
 
-        // Imprimir a descrição detalhada da pizza
-        pizzaChourico.descricaoDetalhada();
-        pizza4Estacoes.descricaoDetalhada();
+        // Adicionar coberturas
+        System.out.println("Adicionando ingredientes à pizza...");
+        pizza.adicionarIngrediente(mozarela, 50);
+        pizza.adicionarIngrediente(chourico, 30);
+        pizza.adicionarIngrediente(camarao, 40);
+        pizza.adicionarIngrediente(tomate, 60);
 
-        // Imprimir tipos de Pizza
-        pizzaChourico.tipoPizza();
-        pizza4Estacoes.tipoPizza();
+        // Imprimir os detalhes da pizza
+        System.out.println("\nDescrição detalhada da pizza:");
+        System.out.println(pizza.descricaoDetalhada());
+
+        // Imprimir o tipo de pizza
+        System.out.println("Tipo de Pizza: " + pizza.tipoPizza());
     }
 }

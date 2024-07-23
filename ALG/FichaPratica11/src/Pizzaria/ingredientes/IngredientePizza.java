@@ -1,6 +1,4 @@
-package Pizzaria;
-
-import Pizzaria.ingredientes.Ingrediente;
+package Pizzaria.ingredientes;
 
 public class IngredientePizza {
     private Ingrediente ingrediente;
@@ -21,5 +19,9 @@ public class IngredientePizza {
 
     public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public double getCaloriasTotais() {
+        return quantidade * ingrediente.getCalorias();
     }
 }

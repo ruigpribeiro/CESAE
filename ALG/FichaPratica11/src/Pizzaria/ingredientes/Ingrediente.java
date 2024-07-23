@@ -3,20 +3,20 @@ package Pizzaria.ingredientes;
 import Pizzaria.enums.UnidadeMedida;
 
 public class Ingrediente {
-    private String codigo;
+    private int id;
     private String nome;
     private UnidadeMedida unidadeMedida;
     private double calorias;
 
-    public Ingrediente(String codigo, String nome, UnidadeMedida unidadeMedida, double calorias) {
-        this.codigo = codigo;
+    public Ingrediente(int id, String nome, UnidadeMedida unidadeMedida, double calorias) {
+        this.id = id;
         this.nome = nome;
         this.unidadeMedida = unidadeMedida;
         this.calorias = calorias;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public int getId() {
+        return id;
     }
 
     public String getNome() {
