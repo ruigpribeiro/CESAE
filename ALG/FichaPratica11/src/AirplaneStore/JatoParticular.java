@@ -7,7 +7,7 @@ public class JatoParticular extends Aviao {
     private int lotacao;
     private double capacidadeBagagem;
     private CategoriaJato categoria;
-    private List<String> instalacoes;
+    private List<Instalacao> instalacoes;
     ;
 
     public JatoParticular(int numeroSerie, String modelo, int anoFabrico, double pesoKg, double comprimentoFuselagem, double envergaduraAsas, double alturaCauda, int numeroMotores, double autonomiaKm, double velocidadeKmh, double preco, int lotacao, double capacidadeBagagem, CategoriaJato categoria) {
@@ -18,7 +18,7 @@ public class JatoParticular extends Aviao {
         instalacoes = new ArrayList<>();
     }
 
-    public void adicionarInstalacao(String instalacao) {
+    public void adicionarInstalacao(Instalacao instalacao) {
         instalacoes.add(instalacao);
     }
 
@@ -27,13 +27,14 @@ public class JatoParticular extends Aviao {
     }
 
     public void imprimirInstalacoes() {
-        for (String instalacao : instalacoes) {
+        for (Instalacao instalacao : instalacoes) {
             System.out.println(instalacao);
         }
     }
 
     @Override
     public void exibirDetalhes() {
+        super.exibirDetalhes();
         System.out.println("Lotação: " + lotacao);
         System.out.println("Capacidade da Bagagem: " + capacidadeBagagem);
         System.out.println("Categoria: " + categoria);

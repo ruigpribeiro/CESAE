@@ -1,4 +1,4 @@
-package Pizzaria.ingrediente;
+package Pizzaria.ingredientes;
 
 import Pizzaria.enums.UnidadeMedida;
 
@@ -15,8 +15,19 @@ public class Ingrediente {
         this.calorias = calorias;
     }
 
-    public void exibirDetalhes() {
-        System.out.println(codigo + " | " + nome + " | " + unidadeMedida + " | " + calorias);
+    public String getCodigo() {
+        return codigo;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public UnidadeMedida getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public double getCalorias() {
+        return calorias;
+    }
 }

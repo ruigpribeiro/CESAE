@@ -6,7 +6,7 @@ import java.util.List;
 public class AviaoCombate extends Aviao {
     private String paisOrigem;
     private boolean camuflagem;
-    private List<String> armas;
+    private List<Arma> armas;
 
     public AviaoCombate(int numeroSerie, String modelo, int anoFabrico, double pesoKg, double comprimentoFuselagem, double envergaduraAsas, double alturaCauda, int numeroMotores, double autonomiaKm, double velocidadeKmh, double preco, String paisOrigem, boolean camuflagem) {
         super(numeroSerie, modelo, anoFabrico, pesoKg, comprimentoFuselagem, envergaduraAsas, alturaCauda, numeroMotores, autonomiaKm, velocidadeKmh, preco);
@@ -15,7 +15,7 @@ public class AviaoCombate extends Aviao {
         this.armas = new ArrayList<>();
     }
 
-    public void adicionarArma(String arma) {
+    public void adicionarArma(Arma arma) {
         if (armas.size() < 3) {
             armas.add(arma);
         } else {
@@ -28,13 +28,14 @@ public class AviaoCombate extends Aviao {
     }
 
     public void imprimirArmas() {
-        for (String arma : armas) {
+        for (Arma arma : armas) {
             System.out.println(arma);
         }
     }
 
     @Override
     public void exibirDetalhes() {
+        super.exibirDetalhes();
         System.out.println("País de Origem: " + paisOrigem);
         System.out.println("Camuflagem: " + (camuflagem ? "Sim" : "Não"));
         System.out.println("Arsenal: " + armas);
