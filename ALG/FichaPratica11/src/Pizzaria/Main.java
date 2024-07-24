@@ -23,11 +23,11 @@ public class Main {
         Pizza pizza = new Pizza(1, "Especial da Casa", "Uma deliciosa pizza com ingredientes selecionados", 12.99, TamanhoPizza.GRANDE);
 
         // Adicionar a base primeiro
-        System.out.println("Adicionando base à pizza...");
+        System.out.println("A adicionar base à pizza...");
         pizza.adicionarIngrediente(massaFina, 100);
 
         // Adicionar coberturas
-        System.out.println("Adicionando ingredientes à pizza...");
+        System.out.println("A adicionar ingredientes à pizza...");
         pizza.adicionarIngrediente(mozarela, 50);
         pizza.adicionarIngrediente(chourico, 30);
         pizza.adicionarIngrediente(camarao, 40);
@@ -39,5 +39,13 @@ public class Main {
 
         // Imprimir o tipo de pizza
         System.out.println("Tipo de Pizza: " + pizza.tipoPizza());
+
+        // Remover topping da pizza
+        System.out.println("\nA remover topping da pizza...");
+        pizza.removerIngrediente(3);
+
+        // Remover base da pizza
+        System.out.println("\nA remover base da pizza...");
+        pizza.removerIngrediente(1);
     }
 }

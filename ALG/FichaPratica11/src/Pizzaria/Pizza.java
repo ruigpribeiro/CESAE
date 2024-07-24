@@ -85,15 +85,16 @@ public class Pizza {
      * @param id Id do ingrediente a ser removido
      */
     public void removerIngrediente(int id) {
-        for (IngredientePizza ingredientePizza : listaIngredientes) {
-            int ingredienteId = ingredientePizza.getIngrediente().getId();
-
-            if (ingredienteId == id) {
-                listaIngredientes.remove(ingredientePizza);
-                return;
+        for (IngredientePizza ingredientes : listaIngredientes) {
+            if (!(ingredientes.getIngrediente() instanceof Base)) {
+                if (ingredientes.getIngrediente().getId() == id) {
+                    listaIngredientes.remove(ingredientes);
+                    System.out.println("Ingrediente removido com sucesso!");
+                    return;
+                }
             }
         }
-        System.out.println("O ingrediente não existe.");
+        System.out.println("O ingrediente não pode ser removido ou não existe.");
     }
 
     /**
