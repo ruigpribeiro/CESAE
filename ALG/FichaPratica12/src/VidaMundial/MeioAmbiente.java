@@ -293,6 +293,8 @@ public class MeioAmbiente {
                     }
                 }
 
+                System.out.println(indices);
+
                 int index = indices.get(random.nextInt(indices.size()));
                 SerVivo serVivo = seresVivos.get(index);
 
@@ -370,21 +372,19 @@ public class MeioAmbiente {
                     }
                 }
 
-                // Verificação no final do terceiro momento
-                if (momento == 2) {
-                    for (SerVivo serAtual : seresVivos) {
-                        SerVivo serVivoAtual = serAtual;
-                        int indexAnimalAtual = seresVivos.indexOf(serVivoAtual);
+                // Verificação de fome no final do dia
+                for (int i = seresVivos.size() - 1; i >= 0; i--) {
+                    SerVivo serAtual = seresVivos.get(i);
 
-                        if (serAtual instanceof Animal) {
-                            Animal animalAtual = (Animal) serAtual;
-                            if (animalAtual.isFome()) {
-                                boolean comeu = animalCome(indexAnimalAtual);
+                    if (serAtual instanceof Animal) {
+                        Animal animal = (Animal) serAtual;
 
-                                if (!comeu) {
-                                    System.out.println("O animal " + animalAtual.getNome() + " morreu de fome.");
-                                    seresVivos.remove(animalAtual);
-                                }
+                        if (animal.isFome()) {
+                            boolean comeu = animalCome(i);
+
+                            if (!comeu) {
+                                System.out.println(animal.getNome() + " morreu de fome.");
+                                seresVivos.remove(i);
                             }
                         }
                     }
