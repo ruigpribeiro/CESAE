@@ -7,6 +7,7 @@ import VidaMundial.serVivo.Inseto;
 import VidaMundial.serVivo.Planta;
 import VidaMundial.serVivo.SerVivo;
 
+import java.awt.desktop.AboutHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -265,6 +266,7 @@ public class MeioAmbiente {
         // Por cada dia
         for (int dia = 0; dia < dias; dia++) {
             System.out.println("***** Um novo dia começa na " + nome + "*****\n");
+            System.out.println("*_*_*_*_*_*_*_*_* Lista de Seres Vivos *_*_*_*_*_*_*_*_*");
             listarSeresVivos(); // Imprime todos os seres vivos
 
             // Animais ficam todos com fome a cada dia novo
@@ -279,21 +281,24 @@ public class MeioAmbiente {
                 int acontecimento = random.nextInt(4) + 1;
                 List<Integer> indices = new ArrayList<>();
 
-                for (int i = 0; i < seresVivos.size(); i++) {
-                    SerVivo serVivoAtual = seresVivos.get(i);
+                System.out.println(acontecimento);
+                // 1. PLANTA 2. ANIMAL 3. INSETO 4. CATASTROFE
 
-                    if (acontecimento == 1 && serVivoAtual instanceof Animal) {
-                        indices.add(i);
-                    }
-                    if (acontecimento == 2 && serVivoAtual instanceof Planta) {
-                        indices.add(i);
-                    }
-                    if (acontecimento == 3 && serVivoAtual instanceof Inseto) {
-                        indices.add(i);
+                if (!seresVivos.isEmpty()) {
+                    for (int i = 0; i < seresVivos.size(); i++) {
+                        SerVivo serVivoAtual = seresVivos.get(i);
+
+                        if (acontecimento == 1 && serVivoAtual instanceof Animal) {
+                            indices.add(i);
+                        }
+                        if (acontecimento == 2 && serVivoAtual instanceof Planta) {
+                            indices.add(i);
+                        }
+                        if (acontecimento == 3 && serVivoAtual instanceof Inseto) {
+                            indices.add(i);
+                        }
                     }
                 }
-
-                System.out.println(indices);
 
                 int index = indices.get(random.nextInt(indices.size()));
                 SerVivo serVivo = seresVivos.get(index);
